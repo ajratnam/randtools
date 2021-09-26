@@ -5,14 +5,16 @@ class Paginator:
     """
     Class which is used for pagination of objects.
 
-    Attributes
+    aaaaa
     ----------
     index : int
         The current index of the Paginator.
     objects : TODO
         The objects on which the Paginator is iterating.
     """
-    def __init__(self, objects, starting_index=0, on_end_error=True, convert_to_list=False):
+
+    # TODO -> Add generator support
+    def __init__(self, objects, starting_index=0, on_end_error=False, convert_to_list=False):
         """
         Creates a new Paginator object with the given parameters.
 
@@ -23,7 +25,9 @@ class Paginator:
         starting_index : int
             The index where the pagination should start.
         on_end_error : bool
-            Whether it should raise error, if the index exceeded the limits.
+            If its True, then it raises error if the index exceeds the limits.
+            If its False, then if index exceeds the limit, it is set back to the limit.
+            If its None, then it wraps the index around the limits.
         convert_to_list: bool
             Whether objects should be converted to a list (needed for generators).
         """
@@ -42,16 +46,20 @@ class Paginator:
 
         When setting the value of the index,
         it raises IndexError if on_end_error is True and the index goes out of bounds,
-        otherwise it wraps the index around the bounds.
+        otherwise if its False, it sets the index back to the limit if it exceeds it,
+        otherwise if its None, it wraps the index around the limits.
         """
         return self._index
 
     @index.setter
     def index(self, value):
         length = len(self.objects)
-        if self.on_end_error and 0 < value < length:
+        if self.on_end_error and not 0 <= value < length:
             raise IndexError(f"There are only {length} objects, but tried to set index as {value}")
-        self._index = value % length
+        if self.on_end_error is None:
+            self._index = value % length
+        else:
+            self._index = max(0, min(length-1, value))
 
     @property
     def value(self):
