@@ -111,7 +111,8 @@ class Paginator:
                     raise StopIteration('End of Iteration')
         while True:
             stepper(self)
-            if cond(self.value): break
+            if cond(self.value):
+                break
         return self.value
 
     def next_while_cond(self, cond, stepper=None):

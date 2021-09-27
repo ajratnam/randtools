@@ -343,7 +343,10 @@ all_data = {
                                                              int)]
 }
 
-check = lambda test_data: pytest.mark.parametrize("sequence", test_data)
+
+def check(test_data):
+    return pytest.mark.parametrize("sequence", test_data)
+
 
 all_test_data = check(sum(all_data.values(), []))
 normal_test_data = check(all_data['normal'])
@@ -435,7 +438,7 @@ def test_next_until_cond_index_and_value(sequence):
 
 
 @starts_proper
-def test_next_until_cond_index_and_value(sequence):
+def test_prev_until_cond_index_and_value(sequence):
     test_data, expected_index, expected_value = get_data_and_expected(sequence, 'prev_until_cond_index',
                                                                       'prev_until_cond_value')
     pages = Paginator(**test_data)
@@ -475,5 +478,67 @@ def test_prev_until_failed_cond_index_and_value(sequence):
 
     try:
         pages.prev_until_cond(condition)
+    except Exception as err:
+        assert isinstance(err, StopIteration)
+
+
+@starts_proper
+def test_next_while_cond_index_and_value(sequence):
+    test_data, expected_index, expected_value = get_data_and_expected(sequence, 'next_until_cond_index',
+                                                                      'next_until_cond_value')
+    pages = Paginator(**test_data)
+
+    def condition(value):
+        return int(value) % 4 or not int(value)
+
+    try:
+        pages.next_while_cond(condition)
+        assert pages.index == expected_index
+        assert pages.value == expected_value
+    except Exception as err:
+        assert isinstance(err, expected_index)
+
+
+@starts_proper
+def test_prev_while_cond_index_and_value(sequence):
+    test_data, expected_index, expected_value = get_data_and_expected(sequence, 'prev_until_cond_index',
+                                                                      'prev_until_cond_value')
+    pages = Paginator(**test_data)
+
+    def condition(value):
+        return int(value) % 3 or not int(value)
+
+    try:
+        pages.prev_while_cond(condition)
+        assert pages.index == expected_index
+        assert pages.value == expected_value
+    except Exception as err:
+        assert isinstance(err, expected_index)
+
+
+@starts_proper
+def test_next_while_failed_cond_index_and_value(sequence):
+    test_data = sequence['data']
+    pages = Paginator(**test_data)
+
+    def condition(value):
+        return value != '0'
+
+    try:
+        pages.next_while_cond(condition)
+    except Exception as err:
+        assert isinstance(err, StopIteration)
+
+
+@starts_proper
+def test_prev_while_failed_cond_index_and_value(sequence):
+    test_data = sequence['data']
+    pages = Paginator(**test_data)
+
+    def condition(value):
+        return value != '0'
+
+    try:
+        pages.prev_while_cond(condition)
     except Exception as err:
         assert isinstance(err, StopIteration)
