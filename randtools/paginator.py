@@ -59,7 +59,7 @@ class Paginator:
         if self.on_end_error is None:
             self._index = value % length
         else:
-            self._index = max(0, min(length-1, value))
+            self._index = max(0, min(length - 1, value))
 
     @property
     def value(self):
@@ -101,10 +101,17 @@ class Paginator:
         value : TODO
             The object at this new index.
         """
+        original_index = self.index
         if stepper is None:
-            stepper = self.__class__.next
-        while not cond(self.value):
+            def stepper(obj):
+                if obj.on_end_error is not None and obj.index == len(obj.objects) - 1:
+                    raise StopIteration('End of Iteration')
+                obj.next()
+                if obj.index == original_index:
+                    raise StopIteration('End of Iteration')
+        while True:
             stepper(self)
+            if cond(self.value): break
         return self.value
 
     def next_while_cond(self, cond, stepper=None):
@@ -157,8 +164,14 @@ class Paginator:
         value : TODO
             The object at this new index.
         """
+        original_index = self.index
         if stepper is None:
-            stepper = self.__class__.prev
+            def stepper(obj):
+                if obj.on_end_error is not None and obj.index == 0:
+                    raise StopIteration('End of Iteration')
+                obj.prev()
+                if obj.index == original_index:
+                    raise StopIteration('End of Iteration')
         return self.next_until_cond(cond, stepper)
 
     def prev_while_cond(self, cond, stepper=None):

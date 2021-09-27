@@ -21,7 +21,11 @@ class data:
             'extreme_next_index': 6,
             'extreme_next_value': '7',
             'extreme_prev_index': 0,
-            'extreme_prev_value': '1'
+            'extreme_prev_value': '1',
+            'next_until_cond_index': 3,
+            'next_until_cond_value': '4',
+            'prev_until_cond_index': StopIteration,
+            'prev_until_cond_value': StopIteration
         }
     }
 
@@ -42,7 +46,11 @@ class data:
             'extreme_next_index': 9,
             'extreme_next_value': 9,
             'extreme_prev_index': 0,
-            'extreme_prev_value': 0
+            'extreme_prev_value': 0,
+            'next_until_cond_index': 4,
+            'next_until_cond_value': 4,
+            'prev_until_cond_index': StopIteration,
+            'prev_until_cond_value': StopIteration
         }
     }
 
@@ -63,7 +71,11 @@ class data:
             'extreme_next_index': 9,
             'extreme_next_value': 9,
             'extreme_prev_index': 0,
-            'extreme_prev_value': 0
+            'extreme_prev_value': 0,
+            'next_until_cond_index': 4,
+            'next_until_cond_value': 4,
+            'prev_until_cond_index': StopIteration,
+            'prev_until_cond_value': StopIteration
         }
     }
 
@@ -84,7 +96,11 @@ class data:
             'extreme_next_index': IndexError,
             'extreme_next_value': IndexError,
             'extreme_prev_index': IndexError,
-            'extreme_prev_value': IndexError
+            'extreme_prev_value': IndexError,
+            'next_until_cond_index': 4,
+            'next_until_cond_value': 4,
+            'prev_until_cond_index': StopIteration,
+            'prev_until_cond_value': StopIteration
         }
     }
 
@@ -105,7 +121,11 @@ class data:
             'extreme_next_index': 0,
             'extreme_next_value': 0,
             'extreme_prev_index': 0,
-            'extreme_prev_value': 0
+            'extreme_prev_value': 0,
+            'next_until_cond_index': 4,
+            'next_until_cond_value': 4,
+            'prev_until_cond_index': 9,
+            'prev_until_cond_value': 9
         }
     }
 
@@ -126,7 +146,11 @@ class data:
             'extreme_next_index': 9,
             'extreme_next_value': 9,
             'extreme_prev_index': 0,
-            'extreme_prev_value': 0
+            'extreme_prev_value': 0,
+            'next_until_cond_index': StopIteration,
+            'next_until_cond_value': StopIteration,
+            'prev_until_cond_index': 6,
+            'prev_until_cond_value': 6
         }
     }
 
@@ -160,7 +184,11 @@ class data:
             'extreme_next_index': 1,
             'extreme_next_value': 1,
             'extreme_prev_index': 1,
-            'extreme_prev_value': 1
+            'extreme_prev_value': 1,
+            'next_until_cond_index': 4,
+            'next_until_cond_value': 4,
+            'prev_until_cond_index': 9,
+            'prev_until_cond_value': 9
         }
     }
 
@@ -181,7 +209,11 @@ class data:
             'extreme_next_index': 9,
             'extreme_next_value': 9,
             'extreme_prev_index': 0,
-            'extreme_prev_value': 0
+            'extreme_prev_value': 0,
+            'next_until_cond_index': 4,
+            'next_until_cond_value': 4,
+            'prev_until_cond_index': StopIteration,
+            'prev_until_cond_value': StopIteration
         }
     }
 
@@ -215,7 +247,11 @@ class data:
             'extreme_next_index': 9,
             'extreme_next_value': 9,
             'extreme_prev_index': 9,
-            'extreme_prev_value': 9
+            'extreme_prev_value': 9,
+            'next_until_cond_index': 4,
+            'next_until_cond_value': 4,
+            'prev_until_cond_index': 6,
+            'prev_until_cond_value': 6
         }
     }
 
@@ -236,7 +272,11 @@ class data:
             'extreme_next_index': 9,
             'extreme_next_value': 9,
             'extreme_prev_index': 0,
-            'extreme_prev_value': 0
+            'extreme_prev_value': 0,
+            'next_until_cond_index': StopIteration,
+            'next_until_cond_value': StopIteration,
+            'prev_until_cond_index': 6,
+            'prev_until_cond_value': 6
         }
     }
 
@@ -257,7 +297,11 @@ class data:
             'extreme_next_index': IndexError,
             'extreme_next_value': IndexError,
             'extreme_prev_index': IndexError,
-            'extreme_prev_value': IndexError
+            'extreme_prev_value': IndexError,
+            'next_until_cond_index': StopIteration,
+            'next_until_cond_value': StopIteration,
+            'prev_until_cond_index': 6,
+            'prev_until_cond_value': 6
         }
     }
 
@@ -278,7 +322,11 @@ class data:
             'extreme_next_index': 9,
             'extreme_next_value': 9,
             'extreme_prev_index': 9,
-            'extreme_prev_value': 9
+            'extreme_prev_value': 9,
+            'next_until_cond_index': 4,
+            'next_until_cond_value': 4,
+            'prev_until_cond_index': 6,
+            'prev_until_cond_value': 6
         }
     }
 
@@ -345,7 +393,8 @@ def test_prev_index_and_value(sequence):
 
 @starts_proper
 def test_extreme_next_index_value(sequence):
-    test_data, expected_index, expected_value = get_data_and_expected(sequence, 'extreme_next_index', 'extreme_next_value')
+    test_data, expected_index, expected_value = get_data_and_expected(sequence, 'extreme_next_index',
+                                                                      'extreme_next_value')
     pages = Paginator(**test_data)
     try:
         pages.next(10)
@@ -357,7 +406,8 @@ def test_extreme_next_index_value(sequence):
 
 @starts_proper
 def test_extreme_prev_index_value(sequence):
-    test_data, expected_index, expected_value = get_data_and_expected(sequence, 'extreme_prev_index', 'extreme_prev_value')
+    test_data, expected_index, expected_value = get_data_and_expected(sequence, 'extreme_prev_index',
+                                                                      'extreme_prev_value')
     pages = Paginator(**test_data)
     try:
         pages.prev(10)
@@ -365,3 +415,65 @@ def test_extreme_prev_index_value(sequence):
         assert pages.value == expected_value
     except Exception as err:
         assert isinstance(err, expected_index)
+
+
+@starts_proper
+def test_next_until_cond_index_and_value(sequence):
+    test_data, expected_index, expected_value = get_data_and_expected(sequence, 'next_until_cond_index',
+                                                                      'next_until_cond_value')
+    pages = Paginator(**test_data)
+
+    def condition(value):
+        return not int(value) % 4 and int(value)
+
+    try:
+        pages.next_until_cond(condition)
+        assert pages.index == expected_index
+        assert pages.value == expected_value
+    except Exception as err:
+        assert isinstance(err, expected_index)
+
+
+@starts_proper
+def test_next_until_cond_index_and_value(sequence):
+    test_data, expected_index, expected_value = get_data_and_expected(sequence, 'prev_until_cond_index',
+                                                                      'prev_until_cond_value')
+    pages = Paginator(**test_data)
+
+    def condition(value):
+        return not int(value) % 3 and int(value)
+
+    try:
+        pages.prev_until_cond(condition)
+        assert pages.index == expected_index
+        assert pages.value == expected_value
+    except Exception as err:
+        assert isinstance(err, expected_index)
+
+
+@starts_proper
+def test_next_until_failed_cond_index_and_value(sequence):
+    test_data = sequence['data']
+    pages = Paginator(**test_data)
+
+    def condition(value):
+        return value == '0'
+
+    try:
+        pages.next_until_cond(condition)
+    except Exception as err:
+        assert isinstance(err, StopIteration)
+
+
+@starts_proper
+def test_prev_until_failed_cond_index_and_value(sequence):
+    test_data = sequence['data']
+    pages = Paginator(**test_data)
+
+    def condition(value):
+        return value == '0'
+
+    try:
+        pages.prev_until_cond(condition)
+    except Exception as err:
+        assert isinstance(err, StopIteration)
