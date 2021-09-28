@@ -25,7 +25,9 @@ class data:
             'next_until_cond_index': 3,
             'next_until_cond_value': '4',
             'prev_until_cond_index': StopIteration,
-            'prev_until_cond_value': StopIteration
+            'prev_until_cond_value': StopIteration,
+            'step_next': ['2', '3', '4', '5', '6', '7', StopIteration],
+            'step_prev': [StopIteration]
         }
     }
 
@@ -50,7 +52,9 @@ class data:
             'next_until_cond_index': 4,
             'next_until_cond_value': 4,
             'prev_until_cond_index': StopIteration,
-            'prev_until_cond_value': StopIteration
+            'prev_until_cond_value': StopIteration,
+            'step_next': [1, 2, 3, 4, 5, 6, 7, 8, 9, StopIteration],
+            'step_prev': [StopIteration]
         }
     }
 
@@ -75,7 +79,9 @@ class data:
             'next_until_cond_index': 4,
             'next_until_cond_value': 4,
             'prev_until_cond_index': StopIteration,
-            'prev_until_cond_value': StopIteration
+            'prev_until_cond_value': StopIteration,
+            'step_next': [3, 4, 5, 6, 7, 8, 9, StopIteration],
+            'step_prev': [1, 0, StopIteration]
         }
     }
 
@@ -100,7 +106,9 @@ class data:
             'next_until_cond_index': 4,
             'next_until_cond_value': 4,
             'prev_until_cond_index': StopIteration,
-            'prev_until_cond_value': StopIteration
+            'prev_until_cond_value': StopIteration,
+            'step_next': [1, 2, 3, 4, 5, 6, 7, 8, 9, StopIteration],
+            'step_prev': [StopIteration]
         }
     }
 
@@ -125,7 +133,9 @@ class data:
             'next_until_cond_index': 4,
             'next_until_cond_value': 4,
             'prev_until_cond_index': 9,
-            'prev_until_cond_value': 9
+            'prev_until_cond_value': 9,
+            'step_next': [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, StopIteration],
+            'step_prev': [StopIteration]
         }
     }
 
@@ -150,7 +160,9 @@ class data:
             'next_until_cond_index': StopIteration,
             'next_until_cond_value': StopIteration,
             'prev_until_cond_index': 6,
-            'prev_until_cond_value': 6
+            'prev_until_cond_value': 6,
+            'step_next': [StopIteration],
+            'step_prev': [8, 7, 6, 5, 4, 3, 2, 1, StopIteration]
         }
     }
 
@@ -188,34 +200,13 @@ class data:
             'next_until_cond_index': 4,
             'next_until_cond_value': 4,
             'prev_until_cond_index': 9,
-            'prev_until_cond_value': 9
+            'prev_until_cond_value': 9,
+            'step_next': [2, 3, 4, 5, 6, 7, 8, 9, 0, 1, StopIteration],
+            'step_prev': [0, 9, 8, 7, 6, 5, 4, 3, 2, 1, StopIteration]
         }
     }
 
-    starting_index_is_less_than_limit_data = {
-        'data': {
-            'objects': range(10),
-            'starting_index': -1,
-            'on_end_error': False,
-            'convert_to_list': True
-        },
-        'expected': {
-            'starting_index': 0,
-            'next_index': 1,
-            'starting_value': 0,
-            'next_value': 1,
-            'prev_index': 0,
-            'prev_value': 0,
-            'extreme_next_index': 9,
-            'extreme_next_value': 9,
-            'extreme_prev_index': 0,
-            'extreme_prev_value': 0,
-            'next_until_cond_index': 4,
-            'next_until_cond_value': 4,
-            'prev_until_cond_index': StopIteration,
-            'prev_until_cond_value': StopIteration
-        }
-    }
+    # starting_index_is_less_than_limit_data -> same as convert_to_list_data
 
     starting_index_is_less_than_limit_and_on_error_is_true_data = {
         'data': {
@@ -251,34 +242,13 @@ class data:
             'next_until_cond_index': 4,
             'next_until_cond_value': 4,
             'prev_until_cond_index': 6,
-            'prev_until_cond_value': 6
+            'prev_until_cond_value': 6,
+            'step_next': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, StopIteration],
+            'step_prev': [8, 7, 6, 5, 4, 3, 2, 1, 0, 9, StopIteration]
         }
     }
 
-    is_at_end = {
-        'data': {
-            'objects': range(10),
-            'starting_index': 9,
-            'on_end_error': False,
-            'convert_to_list': True
-        },
-        'expected': {
-            'starting_index': 9,
-            'next_index': 9,
-            'starting_value': 9,
-            'next_value': 9,
-            'prev_index': 8,
-            'prev_value': 8,
-            'extreme_next_index': 9,
-            'extreme_next_value': 9,
-            'extreme_prev_index': 0,
-            'extreme_prev_value': 0,
-            'next_until_cond_index': StopIteration,
-            'next_until_cond_value': StopIteration,
-            'prev_until_cond_index': 6,
-            'prev_until_cond_value': 6
-        }
-    }
+    # is_at_end -> same as starting_index_is_more_than_limit_data
 
     is_at_end_and_on_error_is_true = {
         'data': {
@@ -301,34 +271,13 @@ class data:
             'next_until_cond_index': StopIteration,
             'next_until_cond_value': StopIteration,
             'prev_until_cond_index': 6,
-            'prev_until_cond_value': 6
+            'prev_until_cond_value': 6,
+            'step_next': [StopIteration],
+            'step_prev': [8, 7, 6, 5, 4, 3, 2, 1, StopIteration]
         }
     }
 
-    is_at_end_and_on_error_is_none = {
-        'data': {
-            'objects': range(10),
-            'starting_index': 9,
-            'on_end_error': None,
-            'convert_to_list': True
-        },
-        'expected': {
-            'starting_index': 9,
-            'next_index': 0,
-            'starting_value': 9,
-            'next_value': 0,
-            'prev_index': 8,
-            'prev_value': 8,
-            'extreme_next_index': 9,
-            'extreme_next_value': 9,
-            'extreme_prev_index': 9,
-            'extreme_prev_value': 9,
-            'next_until_cond_index': 4,
-            'next_until_cond_value': 4,
-            'prev_until_cond_index': 6,
-            'prev_until_cond_value': 6
-        }
-    }
+    # is_at_end_and_on_error_is_none -> same as starting_index_is_less_than_limit_and_on_error_is_none_data
 
 
 all_data = {
@@ -368,6 +317,16 @@ def test_initial_index_and_value(sequence):
         assert pages.value == expected_value
     except Exception as err:
         assert isinstance(err, expected_index)
+
+
+def test_ends():
+    object_at_start = Paginator([0,1])
+    assert object_at_start.is_at_start
+    assert object_at_start.is_at_ends
+
+    object_at_end = Paginator([0, 1], starting_index=1)
+    assert object_at_end.is_at_end
+    assert object_at_end.is_at_ends
 
 
 @starts_proper
@@ -542,3 +501,27 @@ def test_prev_while_failed_cond_index_and_value(sequence):
         pages.prev_while_cond(condition)
     except Exception as err:
         assert isinstance(err, StopIteration)
+
+
+def test_custom_import_error():
+    error = None
+    try:
+        from randtools import NotAnObject
+    except Exception as err:
+        error = err
+    assert isinstance(error, ImportError) and error.msg.startswith('Cannot find')
+
+
+@starts_proper
+def test_step_next(sequence):
+    test_data, expected_data = get_data_and_expected(sequence, 'step_next')
+    pages = Paginator(**test_data)
+    pos = 0
+
+    try:
+        actual_values = pages.step_next(10)
+        for pos, value in enumerate(actual_values):
+            assert value == expected_data[pos]
+    except Exception as err:
+        assert isinstance(err, expected_data[pos])
+        assert pos+1 == len(expected_data)

@@ -53,7 +53,7 @@ class Paginator:
 
     @index.setter
     def index(self, value):
-        length = len(self.objects)
+        length = self.length
         if self.on_end_error and not 0 <= value < length:
             raise IndexError(f"There are only {length} objects, but tried to set index as {value}")
         if self.on_end_error is None:
@@ -104,7 +104,7 @@ class Paginator:
         original_index = self.index
         if stepper is None:
             def stepper(obj):
-                if obj.on_end_error is not None and obj.index == len(obj.objects) - 1:
+                if obj.on_end_error is not None and obj.index == obj.length - 1:
                     raise StopIteration('End of Iteration')
                 obj.next()
                 if obj.index == original_index:
@@ -210,8 +210,17 @@ class Paginator:
             The object at the each new index.
         """
         step = 1 if count > 0 else -1
+        original_index = self.index
+
         for _ in range(abs(count)):
+            if self.on_end_error is not None:
+                if self.is_at_start and step < 0:
+                    return
+                if self.is_at_end and step > 0:
+                    return
             yield self.next(step)
+            if self.index == original_index:
+                return
 
     def step_prev(self, count=1):
         """
@@ -446,3 +455,22 @@ class Paginator:
         """
         self.index = value
         return self.value
+
+    @property
+    def is_at_end(self):
+        return self.index == self.length - 1
+
+    @property
+    def is_at_start(self):
+        return self.index == 0
+
+    @property
+    def is_at_ends(self):
+        return self.is_at_start or self.is_at_end
+
+    @property
+    def length(self):
+        return len(self.objects)
+
+    def __len__(self):
+        return self.length
