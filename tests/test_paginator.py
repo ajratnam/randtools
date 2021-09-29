@@ -4,7 +4,7 @@ from randtools import Paginator
 
 
 class data:
-    normal_data = {
+    normal_data = {  # Sequence 0
         'data': {
             'objects': ['1', '2', '3', '4', '5', '6', '7'],
             'starting_index': 0,
@@ -26,12 +26,12 @@ class data:
             'next_until_cond_value': '4',
             'prev_until_cond_index': StopIteration,
             'prev_until_cond_value': StopIteration,
-            'step_next': ['2', '3', '4', '5', '6', '7', StopIteration],
-            'step_prev': [StopIteration]
+            'step_next': ['2', '3', '4', '5', '6', '7'],
+            'step_prev': []
         }
     }
 
-    convert_to_list_data = {
+    convert_to_list_data = {  # Sequence 1
         'data': {
             'objects': range(10),
             'starting_index': 0,
@@ -53,12 +53,12 @@ class data:
             'next_until_cond_value': 4,
             'prev_until_cond_index': StopIteration,
             'prev_until_cond_value': StopIteration,
-            'step_next': [1, 2, 3, 4, 5, 6, 7, 8, 9, StopIteration],
-            'step_prev': [StopIteration]
+            'step_next': [1, 2, 3, 4, 5, 6, 7, 8, 9],
+            'step_prev': []
         }
     }
 
-    custom_starting_index_data = {
+    custom_starting_index_data = {  # Sequence 2
         'data': {
             'objects': range(10),
             'starting_index': 2,
@@ -80,12 +80,12 @@ class data:
             'next_until_cond_value': 4,
             'prev_until_cond_index': StopIteration,
             'prev_until_cond_value': StopIteration,
-            'step_next': [3, 4, 5, 6, 7, 8, 9, StopIteration],
-            'step_prev': [1, 0, StopIteration]
+            'step_next': [3, 4, 5, 6, 7, 8, 9],
+            'step_prev': [1, 0]
         }
     }
 
-    on_end_error_is_true_data = {
+    on_end_error_is_true_data = {  # Sequence 3
         'data': {
             'objects': range(10),
             'starting_index': 0,
@@ -107,12 +107,12 @@ class data:
             'next_until_cond_value': 4,
             'prev_until_cond_index': StopIteration,
             'prev_until_cond_value': StopIteration,
-            'step_next': [1, 2, 3, 4, 5, 6, 7, 8, 9, StopIteration],
-            'step_prev': [StopIteration]
+            'step_next': [1, 2, 3, 4, 5, 6, 7, 8, 9],
+            'step_prev': []
         }
     }
 
-    on_end_error_is_none_data = {
+    on_end_error_is_none_data = {  # Sequence 4
         'data': {
             'objects': range(10),
             'starting_index': 0,
@@ -134,12 +134,12 @@ class data:
             'next_until_cond_value': 4,
             'prev_until_cond_index': 9,
             'prev_until_cond_value': 9,
-            'step_next': [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, StopIteration],
-            'step_prev': [StopIteration]
+            'step_next': [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+            'step_prev': [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
         }
     }
 
-    starting_index_is_more_than_limit_data = {
+    starting_index_is_more_than_limit_data = {  # Sequence 5
         'data': {
             'objects': range(10),
             'starting_index': 11,
@@ -161,8 +161,8 @@ class data:
             'next_until_cond_value': StopIteration,
             'prev_until_cond_index': 6,
             'prev_until_cond_value': 6,
-            'step_next': [StopIteration],
-            'step_prev': [8, 7, 6, 5, 4, 3, 2, 1, StopIteration]
+            'step_next': [],
+            'step_prev': [8, 7, 6, 5, 4, 3, 2, 1, 0]
         }
     }
 
@@ -179,7 +179,7 @@ class data:
         }
     }
 
-    starting_index_is_more_than_limit_and_on_error_is_none_data = {
+    starting_index_is_more_than_limit_and_on_error_is_none_data = {  # Sequence 6
         'data': {
             'objects': range(10),
             'starting_index': 11,
@@ -201,8 +201,8 @@ class data:
             'next_until_cond_value': 4,
             'prev_until_cond_index': 9,
             'prev_until_cond_value': 9,
-            'step_next': [2, 3, 4, 5, 6, 7, 8, 9, 0, 1, StopIteration],
-            'step_prev': [0, 9, 8, 7, 6, 5, 4, 3, 2, 1, StopIteration]
+            'step_next': [2, 3, 4, 5, 6, 7, 8, 9, 0, 1],
+            'step_prev': [0, 9, 8, 7, 6, 5, 4, 3, 2, 1]
         }
     }
 
@@ -221,7 +221,7 @@ class data:
         }
     }
 
-    starting_index_is_less_than_limit_and_on_error_is_none_data = {
+    starting_index_is_less_than_limit_and_on_error_is_none_data = {  # Sequence 7
         'data': {
             'objects': range(10),
             'starting_index': -1,
@@ -243,14 +243,14 @@ class data:
             'next_until_cond_value': 4,
             'prev_until_cond_index': 6,
             'prev_until_cond_value': 6,
-            'step_next': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, StopIteration],
-            'step_prev': [8, 7, 6, 5, 4, 3, 2, 1, 0, 9, StopIteration]
+            'step_next': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+            'step_prev': [8, 7, 6, 5, 4, 3, 2, 1, 0, 9]
         }
     }
 
     # is_at_end -> same as starting_index_is_more_than_limit_data
 
-    is_at_end_and_on_error_is_true = {
+    is_at_end_and_on_error_is_true = {  # Sequence 8
         'data': {
             'objects': range(10),
             'starting_index': 9,
@@ -272,8 +272,8 @@ class data:
             'next_until_cond_value': StopIteration,
             'prev_until_cond_index': 6,
             'prev_until_cond_value': 6,
-            'step_next': [StopIteration],
-            'step_prev': [8, 7, 6, 5, 4, 3, 2, 1, StopIteration]
+            'step_next': [],
+            'step_prev': [8, 7, 6, 5, 4, 3, 2, 1, 0]
         }
     }
 
@@ -522,6 +522,19 @@ def test_step_next(sequence):
         actual_values = pages.step_next(10)
         for pos, value in enumerate(actual_values):
             assert value == expected_data[pos]
-    except Exception as err:
-        assert isinstance(err, expected_data[pos])
-        assert pos+1 == len(expected_data)
+    finally:
+        assert pos+1 == len(expected_data) if expected_data else 1
+
+
+@starts_proper
+def test_step_prev(sequence):
+    test_data, expected_data = get_data_and_expected(sequence, 'step_prev')
+    pages = Paginator(**test_data)
+    pos = 0
+
+    try:
+        actual_values = pages.step_prev(10)
+        for pos, value in enumerate(actual_values):
+            assert value == expected_data[pos]
+    finally:
+        assert pos+1 == len(expected_data) if expected_data else 1

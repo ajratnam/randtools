@@ -1,3 +1,6 @@
+from typing import Any, Optional
+from collections.abc import Iterable, Callable
+
 __all__ = 'Paginator',
 
 
@@ -5,11 +8,11 @@ class Paginator:
     """
     Class which is used for pagination of objects.
 
-    aaaaa
+    Attributes
     ----------
     index : int
         The current index of the Paginator.
-    objects : TODO
+    objects : Iterable
         The objects on which the Paginator is iterating.
     """
 
@@ -20,7 +23,7 @@ class Paginator:
 
         Parameters
         ----------
-        objects : TODO
+        objects : Iterable
             The objects on which the Paginator should iterate.
         starting_index : int
             The index where the pagination should start.
@@ -79,7 +82,7 @@ class Paginator:
 
         Returns
         -------
-        value : TODO
+        value : Any
             The object at this new index.
         """
         self.index += count
@@ -91,14 +94,14 @@ class Paginator:
 
         Parameters
         ----------
-        cond : TODO
+        cond : Callable
             The condition at which it will stop incrementing.
-        stepper : TODO
+        stepper : Callable, optional
             The function which is used to increment the index.
 
         Returns
         -------
-        value : TODO
+        value : Any
             The object at this new index.
         """
         original_index = self.index
@@ -121,14 +124,14 @@ class Paginator:
 
         Parameters
         ----------
-        cond : TODO
+        cond : Callable
             The condition that is checked to continue incrementing.
-        stepper : TODO
+        stepper : Callable, optional
             The function which is used to increment the index.
 
         Returns
         -------
-        value : TODO
+        value : Any
             The object at this new index.
         """
         return self.next_until_cond(lambda value: not cond(value), stepper)
@@ -144,7 +147,7 @@ class Paginator:
 
         Returns
         -------
-        value : TODO
+        value : Any
             The object at this new index.
         """
         return self.next(-count)
@@ -155,14 +158,14 @@ class Paginator:
 
         Parameters
         ----------
-        cond : TODO
+        cond : Callable
             The condition at which it will stop decrementing.
-        stepper : TODO
+        stepper : Callable, optional
             The function which is used to decrement the index.
 
         Returns
         -------
-        value : TODO
+        value : Any
             The object at this new index.
         """
         original_index = self.index
@@ -181,14 +184,14 @@ class Paginator:
 
         Parameters
         ----------
-        cond : TODO
+        cond : Callable
             The condition that is checked to continue decrementing.
-        stepper : TODO
+        stepper : Callable, optional
             The function which is used to decrement the index.
 
         Returns
         -------
-        value : TODO
+        value : Any
             The object at this new index.
         """
         return self.prev_until_cond(lambda value: not cond(value), stepper)
@@ -201,12 +204,12 @@ class Paginator:
 
         Parameters
         ----------
-        count : TODO
+        count : int
             The number of times to increment the index.
 
         Yields
         -------
-        value : TODO
+        value : Any
             The object at the each new index.
         """
         step = 1 if count > 0 else -1
@@ -230,12 +233,12 @@ class Paginator:
 
         Parameters
         ----------
-        count : TODO
+        count : int
             The number of times to decrement the index.
 
         Yields
         -------
-        value : TODO
+        value : Any
             The object at the each new index.
         """
         return self.step_next(-count)
@@ -248,14 +251,14 @@ class Paginator:
 
         Parameters
         ----------
-        cond : TODO
+        cond : Callable
             The condition at which it will stop incrementing.
-        stepper : TODO
+        stepper : Callable, optional
             The function which is used to increment the index.
 
         Yields
         -------
-        value : TODO
+        value : Any
             The object at the each new index.
         """
         if stepper is None:
@@ -274,14 +277,14 @@ class Paginator:
 
         Parameters
         ----------
-        cond : TODO
+        cond : Callable
             The condition that is checked to continue incrementing.
-        stepper : TODO
+        stepper : Callable, optional
             The function which is used to increment the index.
 
         Yields
         -------
-        value : TODO
+        value : Any
             The object at the each new index.
         """
         return self.step_next_until_cond(lambda value: not cond(value), stepper)
@@ -294,14 +297,14 @@ class Paginator:
 
         Parameters
         ----------
-        cond : TODO
+        cond : Callable
             The condition at which it will stop decrementing.
-        stepper : TODO
+        stepper : Callable, optional
             The function which is used to decrement the index.
 
         Yields
         -------
-        value : TODO
+        value : Any
             The object at the each new index.
         """
         if stepper is None:
@@ -316,14 +319,14 @@ class Paginator:
 
         Parameters
         ----------
-        cond : TODO
+        cond : Callable
             The condition that is checked to continue decrementing.
-        stepper : TODO
+        stepper : Callable, optional
             The function which is used to decrement the index.
 
         Yields
         -------
-        value : TODO
+        value : Any
             The object at the each new index.
         """
         return self.step_prev_until_cond(lambda value: not cond(value), stepper)
@@ -335,7 +338,7 @@ class Paginator:
 
         Returns
         -------
-        value : TODO
+        value : Any
             The object at this new index.
         """
         return self.next_until_cond(lambda value: value)
@@ -347,7 +350,7 @@ class Paginator:
 
         Returns
         -------
-        value : TODO
+        value : Any
             The object at this new index.
         """
         return self.next_while_cond(lambda value: value)
@@ -359,7 +362,7 @@ class Paginator:
 
         Returns
         -------
-        value : TODO
+        value : Any
             The object at this new index.
         """
         return self.prev_until_cond(lambda value: value)
@@ -371,7 +374,7 @@ class Paginator:
 
         Returns
         -------
-        value : TODO
+        value : Any
             The object at this new index.
         """
         return self.prev_while_cond(lambda value: value)
@@ -385,7 +388,7 @@ class Paginator:
 
         Yields
         -------
-        value : TODO
+        value : Any
             The object at the each new index.
         """
         return self.step_next_until_cond(lambda value: value)
@@ -399,7 +402,7 @@ class Paginator:
 
         Yields
         -------
-        value : TODO
+        value : Any
             The object at the each new index.
         """
         return self.step_next_while_cond(lambda value: value)
@@ -413,7 +416,7 @@ class Paginator:
 
         Yields
         -------
-        value : TODO
+        value : Any
             The object at the each new index.
         """
         return self.step_prev_until_cond(lambda value: value)
@@ -427,7 +430,7 @@ class Paginator:
 
         Yields
         -------
-        value : TODO
+        value : Any
             The object at the each new index.
         """
         return self.step_prev_while_cond(lambda value: value)
@@ -444,7 +447,7 @@ class Paginator:
 
         Returns
         -------
-        value : TODO
+        value : Any
             The object at this new index.
 
         Raises
