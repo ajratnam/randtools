@@ -320,11 +320,11 @@ def test_initial_index_and_value(sequence):
 
 
 def test_ends():
-    object_at_start = Paginator([0,1])
+    object_at_start = Paginator([0, 1])
     assert object_at_start.is_at_start
     assert object_at_start.is_at_ends
 
-    object_at_end = Paginator([0, 1], starting_index=1)
+    object_at_end = Paginator([0, 1], starting_index = 1)
     assert object_at_end.is_at_end
     assert object_at_end.is_at_ends
 
@@ -523,7 +523,7 @@ def test_step_next(sequence):
         for pos, value in enumerate(actual_values):
             assert value == expected_data[pos]
     finally:
-        assert pos+1 == len(expected_data) if expected_data else 1
+        assert pos + 1 == len(expected_data) if expected_data else 1
 
 
 @starts_proper
@@ -537,4 +537,4 @@ def test_step_prev(sequence):
         for pos, value in enumerate(actual_values):
             assert value == expected_data[pos]
     finally:
-        assert pos+1 == len(expected_data) if expected_data else 1
+        assert pos + 1 == len(expected_data) if expected_data else 1

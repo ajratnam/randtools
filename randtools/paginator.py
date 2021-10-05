@@ -1,5 +1,6 @@
-from typing import Any, Optional
-from collections.abc import Iterable, Callable
+from collections.abc import Callable, Iterable
+
+Callable: Callable
 
 __all__ = 'Paginator',
 
