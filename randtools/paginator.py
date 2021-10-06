@@ -282,12 +282,14 @@ class Paginator:
             except StopIteration:
                 return
             except GeneratorExit:
-                yield self.value
-                return
+                break
 
             if cond(self.value):
-                return
+                break
             yield self.value
+
+        yield self.value
+        return
 
     def step_next_while_cond(self, cond, stepper=None):
         """
