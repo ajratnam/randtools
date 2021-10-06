@@ -27,7 +27,9 @@ class data:
             'prev_until_cond_index': StopIteration,
             'prev_until_cond_value': StopIteration,
             'step_next': ['2', '3', '4', '5', '6', '7'],
-            'step_prev': []
+            'step_prev': [],
+            'step_next_until_cond': ['2', '3', '4'],
+            'step_prev_until_cond': []
         }
     }
 
@@ -54,7 +56,9 @@ class data:
             'prev_until_cond_index': StopIteration,
             'prev_until_cond_value': StopIteration,
             'step_next': [1, 2, 3, 4, 5, 6, 7, 8, 9],
-            'step_prev': []
+            'step_prev': [],
+            'step_next_until_cond': [1, 2, 3, 4],
+            'step_prev_until_cond': []
         }
     }
 
@@ -81,7 +85,9 @@ class data:
             'prev_until_cond_index': StopIteration,
             'prev_until_cond_value': StopIteration,
             'step_next': [3, 4, 5, 6, 7, 8, 9],
-            'step_prev': [1, 0]
+            'step_prev': [1, 0],
+            'step_next_until_cond': [3, 4],
+            'step_prev_until_cond': [1, 0]
         }
     }
 
@@ -108,7 +114,9 @@ class data:
             'prev_until_cond_index': StopIteration,
             'prev_until_cond_value': StopIteration,
             'step_next': [1, 2, 3, 4, 5, 6, 7, 8, 9],
-            'step_prev': []
+            'step_prev': [],
+            'step_next_until_cond': [1, 2, 3, 4],
+            'step_prev_until_cond': []
         }
     }
 
@@ -135,7 +143,9 @@ class data:
             'prev_until_cond_index': 9,
             'prev_until_cond_value': 9,
             'step_next': [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
-            'step_prev': [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+            'step_prev': [9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
+            'step_next_until_cond': [1, 2, 3, 4],
+            'step_prev_until_cond': [9]
         }
     }
 
@@ -162,7 +172,9 @@ class data:
             'prev_until_cond_index': 6,
             'prev_until_cond_value': 6,
             'step_next': [],
-            'step_prev': [8, 7, 6, 5, 4, 3, 2, 1, 0]
+            'step_prev': [8, 7, 6, 5, 4, 3, 2, 1, 0],
+            'step_next_until_cond': [],
+            'step_prev_until_cond': [8, 7, 6]
         }
     }
 
@@ -202,7 +214,9 @@ class data:
             'prev_until_cond_index': 9,
             'prev_until_cond_value': 9,
             'step_next': [2, 3, 4, 5, 6, 7, 8, 9, 0, 1],
-            'step_prev': [0, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+            'step_prev': [0, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+            'step_next_until_cond': [2, 3, 4],
+            'step_prev_until_cond': [0, 9]
         }
     }
 
@@ -244,7 +258,9 @@ class data:
             'prev_until_cond_index': 6,
             'prev_until_cond_value': 6,
             'step_next': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-            'step_prev': [8, 7, 6, 5, 4, 3, 2, 1, 0, 9]
+            'step_prev': [8, 7, 6, 5, 4, 3, 2, 1, 0, 9],
+            'step_next_until_cond': [0, 1, 2, 3, 4],
+            'step_prev_until_cond': [8, 7, 6]
         }
     }
 
@@ -273,7 +289,9 @@ class data:
             'prev_until_cond_index': 6,
             'prev_until_cond_value': 6,
             'step_next': [],
-            'step_prev': [8, 7, 6, 5, 4, 3, 2, 1, 0]
+            'step_prev': [8, 7, 6, 5, 4, 3, 2, 1, 0],
+            'step_next_until_cond': [],
+            'step_prev_until_cond': [8, 7, 6]
         }
     }
 
@@ -506,6 +524,7 @@ def test_prev_while_failed_cond_index_and_value(sequence):
 def test_custom_import_error():
     error = None
     try:
+        # noinspection PyUnresolvedReferences
         from randtools import NotAnObject
     except Exception as err:
         error = err
@@ -516,25 +535,135 @@ def test_custom_import_error():
 def test_step_next(sequence):
     test_data, expected_data = get_data_and_expected(sequence, 'step_next')
     pages = Paginator(**test_data)
-    pos = 0
 
-    try:
-        actual_values = pages.step_next(10)
-        for pos, value in enumerate(actual_values):
-            assert value == expected_data[pos]
-    finally:
-        assert pos + 1 == len(expected_data) if expected_data else 1
+    actual_values = pages.step_next(10)
+    for pos, value in enumerate(actual_values):
+        assert value == expected_data[pos]
 
 
 @starts_proper
 def test_step_prev(sequence):
     test_data, expected_data = get_data_and_expected(sequence, 'step_prev')
     pages = Paginator(**test_data)
-    pos = 0
 
-    try:
-        actual_values = pages.step_prev(10)
-        for pos, value in enumerate(actual_values):
-            assert value == expected_data[pos]
-    finally:
-        assert pos + 1 == len(expected_data) if expected_data else 1
+    actual_values = pages.step_prev(10)
+    for pos, value in enumerate(actual_values):
+        assert value == expected_data[pos]
+
+
+@starts_proper
+def test_step_next_until_cond(sequence):
+    test_data, expected_data = get_data_and_expected(sequence, 'step_next_until_cond')
+    pages = Paginator(**test_data)
+
+    def condition(value):
+        return not int(value) % 4 and int(value)
+
+    actual_values = pages.step_next_until_cond(condition)
+    for pos, actual_value in enumerate(actual_values):
+        assert actual_value == expected_data[pos]
+
+
+@starts_proper
+def test_step_prev_until_cond(sequence):
+    test_data, expected_data = get_data_and_expected(sequence, 'step_prev_until_cond')
+    pages = Paginator(**test_data)
+
+    def condition(value):
+        return not int(value) % 3 and int(value)
+
+    actual_values = pages.step_prev_until_cond(condition)
+    for pos, actual_value in enumerate(actual_values):
+        assert actual_value == expected_data[pos]
+
+
+@starts_proper
+def test_step_next_until_failed_cond(sequence):
+    test_data = sequence['data']
+    pages = Paginator(**test_data)
+    initial_index = pages.index + 1
+
+    def condition(value):
+        return value == '0'
+
+    actual_data = list(pages.step_next_until_cond(condition))
+    if pages.on_end_error is not None:
+        assert actual_data == pages.objects[initial_index:]
+    else:
+        assert actual_data == pages.objects[initial_index:] + pages.objects[:initial_index]
+
+
+@starts_proper
+def test_step_prev_until_failed_cond(sequence):
+    test_data = sequence['data']
+    pages = Paginator(**test_data)
+    initial_index = pages.index
+
+    def condition(value):
+        return value == '0'
+
+    actual_data = list(pages.step_prev_until_cond(condition))
+    # noinspection DuplicatedCode
+    if pages.on_end_error is not None:
+        assert actual_data == pages.objects[:initial_index][::-1]
+    else:
+        assert actual_data == pages.objects[:initial_index][::-1] + pages.objects[initial_index:][::-1]
+
+
+@starts_proper
+def test_step_next_while_cond(sequence):
+    test_data, expected_data = get_data_and_expected(sequence, 'step_next_until_cond')
+    pages = Paginator(**test_data)
+
+    def condition(value):
+        return int(value) % 4 or not int(value)
+
+    actual_values = pages.step_next_while_cond(condition)
+    for pos, actual_value in enumerate(actual_values):
+        assert actual_value == expected_data[pos]
+
+
+@starts_proper
+def test_step_prev_while_cond(sequence):
+    test_data, expected_data = get_data_and_expected(sequence, 'step_prev_until_cond', )
+    pages = Paginator(**test_data)
+
+    def condition(value):
+        return int(value) % 3 or not int(value)
+
+    actual_values = pages.step_prev_while_cond(condition)
+    for pos, actual_value in enumerate(actual_values):
+        assert actual_value == expected_data[pos]
+
+
+@starts_proper
+def test_next_while_failed_cond(sequence):
+    test_data = sequence['data']
+    pages = Paginator(**test_data)
+    initial_index = pages.index + 1
+
+    def condition(value):
+        return value != '0'
+
+    actual_data = list(pages.step_next_while_cond(condition))
+    if pages.on_end_error is not None:
+        assert actual_data == pages.objects[initial_index:]
+    else:
+        assert actual_data == pages.objects[initial_index:] + pages.objects[:initial_index]
+
+
+@starts_proper
+def test_prev_while_failed_cond(sequence):
+    test_data = sequence['data']
+    pages = Paginator(**test_data)
+    initial_index = pages.index
+
+    def condition(value):
+        return value != '0'
+
+    actual_data = list(pages.step_prev_while_cond(condition))
+    # noinspection DuplicatedCode
+    if pages.on_end_error is not None:
+        assert actual_data == pages.objects[:initial_index][::-1]
+    else:
+        assert actual_data == pages.objects[:initial_index][::-1] + pages.objects[initial_index:][::-1]

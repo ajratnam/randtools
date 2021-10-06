@@ -112,9 +112,14 @@ class Paginator:
                     raise StopIteration('End of Iteration')
                 obj.next()
                 if obj.index == original_index:
-                    raise StopIteration('End of Iteration')
+                    raise GeneratorExit('Last value of Iteration')
         while True:
-            stepper(self)
+            try:
+                stepper(self)
+            except GeneratorExit:
+                if cond(self.value):
+                    break
+                raise StopIteration('End of Iteration')
             if cond(self.value):
                 break
         return self.value
@@ -176,7 +181,7 @@ class Paginator:
                     raise StopIteration('End of Iteration')
                 obj.prev()
                 if obj.index == original_index:
-                    raise StopIteration('End of Iteration')
+                    raise GeneratorExit('Last value of Iteration')
         return self.next_until_cond(cond, stepper)
 
     def prev_while_cond(self, cond, stepper=None):
@@ -262,12 +267,26 @@ class Paginator:
         value : Any
             The object at the each new index.
         """
+        original_index = self.index
         if stepper is None:
-            stepper = self.__class__.next
+            def stepper(obj):
+                if obj.on_end_error is not None and obj.index == obj.length - 1:
+                    raise StopIteration('End of Iteration')
+                obj.next()
+                if obj.index == original_index:
+                    raise GeneratorExit('Last value of Iteration')
+
         while True:
-            stepper(self)
+            try:
+                stepper(self)
+            except StopIteration:
+                return
+            except GeneratorExit:
+                yield self.value
+                return
+
             if cond(self.value):
-                break
+                return
             yield self.value
 
     def step_next_while_cond(self, cond, stepper=None):
@@ -308,8 +327,14 @@ class Paginator:
         value : Any
             The object at the each new index.
         """
+        original_index = self.index
         if stepper is None:
-            stepper = self.__class__.prev
+            def stepper(obj):
+                if obj.on_end_error is not None and obj.index == 0:
+                    raise StopIteration('End of Iteration')
+                obj.prev()
+                if obj.index == original_index:
+                    raise GeneratorExit('Last value of Iteration')
         return self.step_next_until_cond(cond, stepper)
 
     def step_prev_while_cond(self, cond, stepper=None):
