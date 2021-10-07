@@ -1,5 +1,7 @@
 from collections import Callable
-from typing import Any, Iterable, Optional, Sequence, Union
+from typing import Any, Iterable, Optional, Sequence, Tuple, Union
+
+__all__: Tuple[str]
 
 
 class Paginator:

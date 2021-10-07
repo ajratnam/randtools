@@ -108,7 +108,7 @@ class Paginator:
         original_index = self.index
         if stepper is None:
             def stepper(obj):
-                if obj.on_end_error is not None and obj.index == obj.length - 1:
+                if obj.on_end_error is not None and obj.is_at_end:
                     raise StopIteration('End of Iteration')
                 obj.next()
                 if obj.index == original_index:
@@ -270,7 +270,7 @@ class Paginator:
         original_index = self.index
         if stepper is None:
             def stepper(obj):
-                if obj.on_end_error is not None and obj.index == obj.length - 1:
+                if obj.on_end_error is not None and obj.is_at_end:
                     raise StopIteration('End of Iteration')
                 obj.next()
                 if obj.index == original_index:
@@ -489,19 +489,34 @@ class Paginator:
 
     @property
     def is_at_end(self):
+        """
+        Checks if the paginator is either at the end.
+        """
         return self.index == self.length - 1
 
     @property
     def is_at_start(self):
+        """
+        Checks if the paginator is either at the start.
+        """
         return self.index == 0
 
     @property
     def is_at_ends(self):
+        """
+        Checks if the paginator is either at the start or end.
+        """
         return self.is_at_start or self.is_at_end
 
     @property
     def length(self):
+        """
+        Returns the number of objects in the Paginator.
+        """
         return len(self.objects)
 
     def __len__(self):
+        """
+        Returns the number of objects in the Paginator.
+        """
         return self.length

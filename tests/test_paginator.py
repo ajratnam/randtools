@@ -770,7 +770,8 @@ def test_prev_while_failed_cond(sequence):
 
 @starts_proper
 def test_goto_next_non_empty(sequence):
-    test_data, expected_index, expected_value = get_data_and_expected(sequence, 'next_non_empty_index', 'next_non_empty_value')
+    test_data, expected_index, expected_value = get_data_and_expected(sequence, 'next_non_empty_index',
+                                                                      'next_non_empty_value')
     pages = Paginator(**test_data)
     try:
         pages.goto_next_non_empty()
@@ -794,7 +795,8 @@ def test_goto_next_empty(sequence):
 
 @starts_proper
 def test_goto_prev_non_empty(sequence):
-    test_data, expected_index, expected_value = get_data_and_expected(sequence, 'prev_non_empty_index', 'prev_non_empty_value')
+    test_data, expected_index, expected_value = get_data_and_expected(sequence, 'prev_non_empty_index',
+                                                                      'prev_non_empty_value')
     pages = Paginator(**test_data)
     try:
         pages.goto_prev_non_empty()
@@ -870,7 +872,7 @@ def test_set(sequence):
             assert isinstance(err, IndexError)
     else:
         pages.set(20)
-        assert pages.index == len(pages.objects) - 1
+        assert pages.is_at_end
 
 
 @starts_proper

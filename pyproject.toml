@@ -1,8 +1,13 @@
 [tool.poetry]
 name = "randtools"
-version = "0.1.0"
-description = ""
+version = "1.0.0"
+description = "Tools that I use in my various other projects"
 authors = ["Ajay Ratnam <ajayratnam.satheesh@gmail.com>"]
+maintainers = ["Ajay Ratnam <ajayratnam.satheesh@gmail.com>"]
+homepage = 'https://github.com/ajratnam/randtools'
+documentation = 'https://github.com/ajratnam/randtools'
+repository = 'https://github.com/ajratnam/randtools'
+readme = 'README.md'
 
 [tool.poetry.dependencies]
 python = "^3.9"
